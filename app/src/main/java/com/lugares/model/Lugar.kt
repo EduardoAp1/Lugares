@@ -17,6 +17,8 @@ data class Lugar(
     val correo: String?,//signo de pregunta puede ser null
     @ColumnInfo(name="telefono")
     val telefono: String?,
+    @ColumnInfo(name="web")
+    val web: String?,
     @ColumnInfo(name="latitud")
     val latitud: Double?,
     @ColumnInfo(name="longitud")
