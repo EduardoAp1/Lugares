@@ -3,10 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Documentos/movil/Lugares/app/src/main/res/drawable/ic_delete.xml" value="0.339" />
+        <entry key="..\:/Documentos/movil/Lugares/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Documentos/movil/Lugares/app/src/main/res/layout/content_principal.xml" value="0.36666666666666664" />
         <entry key="..\:/Documentos/movil/Lugares/app/src/main/res/layout/fragment_add_lugar.xml" value="0.36666666666666664" />
         <entry key="..\:/Documentos/movil/Lugares/app/src/main/res/layout/fragment_lugar.xml" value="0.36666666666666664" />
         <entry key="..\:/Documentos/movil/Lugares/app/src/main/res/layout/fragment_update_lugar.xml" value="0.36666666666666664" />
         <entry key="..\:/Documentos/movil/Lugares/app/src/main/res/layout/lugar_fila.xml" value="0.5" />
+        <entry key="..\:/Documentos/movil/Lugares/app/src/main/res/layout/tenis_fila.xml" value="0.35260416666666666" />
+        <entry key="..\:/Documentos/movil/Lugares/app/src/main/res/menu/delete_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Documentos/movil/Lugares/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.339" />
         <entry key="..\:/Users/Eduardo/Documents/Movil/app/src/main/res/drawable/ic_logoff.xml" value="0.3635" />
         <entry key="..\:/Users/Eduardo/Documents/Movil/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/Eduardo/Documents/Movil/app/src/main/res/layout/activity_principal.xml" value="0.3625" />
