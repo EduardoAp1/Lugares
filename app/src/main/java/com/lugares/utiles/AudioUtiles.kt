@@ -6,10 +6,8 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
 import android.media.MediaRecorder
-import android.os.Build
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.lugares.R
@@ -32,6 +30,12 @@ class AudioUtiles(
         btPlay.isEnabled = false
         btDelete.isEnabled = false
     }
+
+    private var audioGrabado:Boolean=false
+    fun getAudioGrabado():Boolean {
+        return audioGrabado
+    }
+
     private var mediaRecorder: MediaRecorder? = null
     private var grabando: Boolean = false
     var audioFile: File = File.createTempFile("audio_", ".mp3")
@@ -86,6 +90,7 @@ class AudioUtiles(
         btDelete.isEnabled = true
         mediaRecorder?.stop()
         mediaRecorder?.release()
+        audioGrabado = true
         Toast.makeText(contexto,msgDetieneNotaAudio,Toast.LENGTH_SHORT).show()
         btAccion.setImageResource(R.drawable.ic_mic)
     }
@@ -109,11 +114,13 @@ class AudioUtiles(
                 audioFile.delete()
                 btPlay.isEnabled = false
                 btDelete.isEnabled = false
+                audioGrabado = false
             }
         } catch (e: IOException) {
             e.printStackTrace()
         }
     }
+
 }
 
 

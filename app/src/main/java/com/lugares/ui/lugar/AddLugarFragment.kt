@@ -88,51 +88,63 @@ class AddLugarFragment : Fragment() {
             binding.imagen,
             tomarFotosActivity)
 
+        ubicaGPS()
+
         return binding.root
     }
 
     private fun subeAudio() {
-        val audioFile = audioUtiles.audioFile
-        if(audioFile.exists() && audioFile.isFile && audioFile.canRead()){
-            val ruta =  Uri.fromFile(audioFile)
-            val rutaNube = "lugaresApp/${Firebase.auth.currentUser?.email}/audios/${audioFile.name}"
-            val refencia: StorageReference = Firebase.storage.reference.child(rutaNube)
-            refencia.putFile(ruta)
-                .addOnSuccessListener {
-                    refencia.downloadUrl
-                        .addOnSuccessListener {
-                            val rutaAudio = it.toString()
-                            subeImagen(rutaAudio)
-                        }
-                }
-                .addOnFailureListener {
-                    subeImagen("")
-                }
-        }else{
+        if (audioUtiles.getAudioGrabado()) {
+            val audioFile = audioUtiles.audioFile
+            if (audioFile.exists() && audioFile.isFile && audioFile.canRead()) {
+                val ruta = Uri.fromFile(audioFile)
+                val rutaNube =
+                    "lugaresApp/${Firebase.auth.currentUser?.email}/audios/${audioFile.name}"
+                val referencia: StorageReference = Firebase.storage.reference.child(rutaNube)
+                referencia.putFile(ruta)
+                    .addOnSuccessListener {
+                        referencia.downloadUrl
+                            .addOnSuccessListener {
+                                val rutaAudio = it.toString()
+                                subeImagen(rutaAudio)
+                            }
+                    }
+                    .addOnFailureListener {
+                        //Error al grabar audio en la nube...
+                        subeImagen("")
+                    }
+            } else { //Por alguna razón no hay archivo de audio...
+                subeImagen("")
+            }
+        } else {  //No se tomó la nota de audio
             subeImagen("")
         }
     }
-
     private fun subeImagen(rutaAudio: String) {
         binding.msgMensaje.text = getString(R.string.msg_subiendo_imagen)
-        val imagenFile = imagenUtiles.imagenFile
-        if(imagenFile.exists() && imagenFile.isFile && imagenFile.canRead()){
-            val ruta =  Uri.fromFile(imagenFile)
-            val rutaNube = "lugaresApp/${Firebase.auth.currentUser?.email}/imagenes/${imagenFile.name}"
-            val refencia: StorageReference = Firebase.storage.reference.child(rutaNube)
-            refencia.putFile(ruta)
-                .addOnSuccessListener {
-                    refencia.downloadUrl
-                        .addOnSuccessListener {
-                            val rutaImagen = it.toString()
-                            addLugar(rutaAudio,rutaImagen)
-                        }
-                }
-                .addOnFailureListener {
-                    addLugar(rutaAudio, "")
-                }
-        }else{
-            addLugar(rutaAudio,"")
+        if (imagenUtiles.getFotoTomada()) {
+            val imagenFile = imagenUtiles.imagenFile
+            if (imagenFile.exists() && imagenFile.isFile && imagenFile.canRead()) {
+                val ruta = Uri.fromFile(imagenFile)
+                val rutaNube =
+                    "lugaresApp/${Firebase.auth.currentUser?.email}/imagenes/${imagenFile.name}"
+                val referencia: StorageReference = Firebase.storage.reference.child(rutaNube)
+                referencia.putFile(ruta)
+                    .addOnSuccessListener {
+                        referencia.downloadUrl
+                            .addOnSuccessListener {
+                                val rutaImagen = it.toString()
+                                addLugar(rutaAudio, rutaImagen)
+                            }
+                    }
+                    .addOnFailureListener {
+                        addLugar(rutaAudio, "")
+                    }
+            } else {
+                addLugar(rutaAudio, "")
+            }
+        } else {
+            addLugar(rutaAudio, "")
         }
     }
 

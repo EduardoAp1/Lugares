@@ -4,6 +4,7 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
@@ -12,6 +13,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.bumptech.glide.Glide
 import com.lugares.R
 import com.lugares.databinding.FragmentUpdateLugarBinding
 import com.lugares.model.Lugar
@@ -26,6 +28,8 @@ class UpdateLugarFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var lugarViewModel: LugarViewModel
+    
+    private lateinit var mediaPlayer: MediaPlayer
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -60,6 +64,24 @@ class UpdateLugarFragment : Fragment() {
 
         binding.btWeb.setOnClickListener(){
             verWeb()
+        }
+        //Para ininializar y activar boton de play... si hay una ruta
+        if(args.lugar.rutaAudio?.isNotEmpty()==true){
+            mediaPlayer = MediaPlayer()
+            mediaPlayer.setDataSource(args.lugar.rutaAudio)
+            mediaPlayer.prepare()
+            binding.btPlay.isEnabled=true
+            binding.btPlay.setOnClickListener{mediaPlayer.start()}
+        }else{
+            binding.btPlay.isEnabled=false
+        }
+
+        //Si hay ruta de imagen la dibujo
+        if(args.lugar.rutaImagen?.isNotEmpty()==true){
+                Glide.with(requireContext())
+                .load(args.lugar.rutaImagen)
+                .fitCenter()
+                .into(binding.imagen)
         }
 
         //Se indica que esta pantalla tiene un menu personalizado....

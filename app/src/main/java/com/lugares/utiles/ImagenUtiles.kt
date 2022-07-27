@@ -59,6 +59,13 @@ class ImagenUtiles (
     fun actualizaFoto() {
         imagen.setImageBitmap(
             BitmapFactory.decodeFile(imagenFile.absolutePath))
+        fotoTomada =  true
+    }
+
+    //Para saber si se tomó una foto
+    private var fotoTomada:Boolean=false
+    fun getFotoTomada():Boolean {
+        return fotoTomada
     }
 }
 
